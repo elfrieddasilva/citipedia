@@ -10,11 +10,13 @@ import {useState} from "react";
 import FormProvider from "@/components/form-provider";
 import { useFormStore } from '@/form/store';
 import {resetForm} from "@/lib/utils";
+import {useIsMobile} from "@/hooks/use-mobile";
 
 const Map = () => {
     resetForm();
     const [position, setPosition] = useState({ lat: 6.3703, lng: 2.3912 });
     const store = useFormStore();
+    const isMobile = useIsMobile();
     const LocationMarker = () => {
         useMapEvents({
             click(e) {
@@ -33,9 +35,13 @@ const Map = () => {
         <>
             <div className="relative">
                <FormProvider />
-                <div className="absolute top-20  left-0.5 z-9999">
-                    <Image src={Logo.src} alt="Citipedia" width={80} height={80}/>
-                </div>
+                {
+                    !isMobile && (
+                        <div className="absolute top-20  left-0.5 z-9999">
+                            <Image src={Logo.src} alt="Citipedia" width={80} height={80}/>
+                        </div>
+                    )
+                }
             </div>
             <MapContainer className="map" center={position} zoom={13} scrollWheelZoom={false}>
                 <TileLayer
