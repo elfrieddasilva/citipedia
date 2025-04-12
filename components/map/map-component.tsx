@@ -13,7 +13,6 @@ import {resetForm} from "@/lib/utils";
 import {useIsMobile} from "@/hooks/use-mobile";
 
 const Map = () => {
-    resetForm();
     const [position, setPosition] = useState({ lat: 6.3703, lng: 2.3912 });
     const store = useFormStore();
     const isMobile = useIsMobile();

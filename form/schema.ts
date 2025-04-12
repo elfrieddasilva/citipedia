@@ -10,6 +10,7 @@ export const formSchema = z.object({
     transportationMean: z.string().min(3, {
         message: "Veuillez entrer votre moyen de déplacement"
     }).max(20),
+
 });
 
 export type FormSchemaType = z.infer<typeof formSchema>;

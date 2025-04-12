@@ -617,34 +617,30 @@ export const sample = {
 }
 
 @injectable()
-export class RestBestLocationRepository implements BestLocationRepository {
+export class InmemoryBestLocationRepository implements BestLocationRepository {
     constructor(
         @inject(AxiosHttp)
         private http: AxiosHttp
     ) {
     }
     async getBestLocationsForCoordinates(coord: GeoCoordinate, transportationMean?: string): Promise<BestLocation[]> {
-       const response = (
-           await this.http.get<RecommendationResponse>(
-               `best_location?dest_lat=${coord.latitude}&dest_lng=${coord.longitude}&transportation=${transportationMean}`
-           )
-       ).data.best_places;
+        const response = (sample as unknown as RecommendationResponse).best_places;
         return response.map((place) => {
-           return ({
-               livingIndex: place.living_index,
-               coordinates: {
-                   latitude: place.latitude,
-                   longitude: place.longitude
-               },
-               place: place.place,
-               distance: place.distance,
-               optimalPath: place.optimal_path.map((value) => ({
-                   latitude: value[0],
-                   longitude: value[1],
-               })),
-               score: place.score
-           })
-       });
+            return ({
+                livingIndex: place.living_index,
+                coordinates: {
+                    latitude: place.latitude,
+                    longitude: place.longitude
+                },
+                place: place.place,
+                distance: place.distance,
+                optimalPath: place.optimal_path.map((value) => ({
+                    latitude: value[0],
+                    longitude: value[1],
+                })),
+                score: place.score
+            })
+        });
     }
 
 }

@@ -49,8 +49,8 @@ const TransportationMeanForm = () => {
                 locations: bestLocations,
             })
             window.location.replace("/best-locations");
-        } catch (error : Error) {
-            toast.error(error.message);
+        } catch (error : unknown) {
+            toast.error((error as unknown as Error).message);
         }
 
     };

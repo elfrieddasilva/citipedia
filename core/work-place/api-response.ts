@@ -1,11 +1,11 @@
-import {GeoCoordinate} from "@/core/work-place/geo-coordinate";
+type Coordinate = [number, number];
 
-export interface BestPlace {
+interface BestPlace {
     distance: number;
     latitude: number;
     longitude: number;
     living_index: number;
-    optimal_path: GeoCoordinate[];
+    optimal_path: Coordinate[];
     place: string;
     score: number;
 }
